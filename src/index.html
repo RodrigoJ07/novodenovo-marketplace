@@ -20,25 +20,30 @@
     <div class="search-container">
         <input type="text" id="search-bar" placeholder="O que procuras hoje?" onkeyup="filtrarProdutos()">
     </div>
-	<div class="filters-section" style="padding: 0 20px; margin-bottom: 20px;">
-    <div class="filter-group">
-        <small>Categoria</small>
-        <div class="filter-chips" id="filter-category">
-            <button class="chip active" onclick="setFilter('category', 'Todas', this)">Todas</button>
-            <button class="chip" onclick="setFilter('category', 'Smartphones', this)">Smartphones</button>
-            <button class="chip" onclick="setFilter('category', 'Portáteis', this)">Portáteis</button>
-            <button class="chip" onclick="setFilter('category', 'Áudio', this)">Áudio</button>
+    <div class="filters-section" style="padding: 0 20px; margin-bottom: 20px;">
+        <div class="filter-group">
+            <small>Categoria</small>
+            <div class="filter-chips" id="filter-category">
+                <button class="chip active" onclick="setFilter('category', 'Todas', this)">Todas</button>
+                <button class="chip" onclick="setFilter('category', 'Smartphones', this)">Smartphones</button>
+                <button class="chip" onclick="setFilter('category', 'Portáteis', this)">Portáteis</button>
+                <button class="chip" onclick="setFilter('category', 'Áudio', this)">Áudio</button>
+                <button class="chip" onclick="setFilter('category', 'Wearables', this)">Wearables</button>
+                <button class="chip" onclick="setFilter('category', 'Gaming', this)">Gaming</button>
+            </div>
+        </div>
+        <div class="filter-group" style="margin-top:10px;">
+            <small>Condição</small>
+            <div class="filter-chips" id="filter-grade">
+                <button class="chip active" onclick="setFilter('grade', 'Todas', this)">Todas</button>
+                <button class="chip" onclick="setFilter('grade', 'Grade A', this)">Grade A</button>
+                <button class="chip" onclick="setFilter('grade', 'Como Novo', this)">Como Novo</button>
+                <button class="chip" onclick="setFilter('grade', 'Excelente', this)">Excelente</button>
+                <button class="chip" onclick="setFilter('grade', 'Selado', this)">Selado</button>
+                <button class="chip" onclick="setFilter('grade', 'Grade B', this)">Grade B</button>
+            </div>
         </div>
     </div>
-    <div class="filter-group" style="margin-top:10px;">
-        <small>Condição</small>
-        <div class="filter-chips" id="filter-grade">
-            <button class="chip active" onclick="setFilter('grade', 'Todas', this)">Todas</button>
-            <button class="chip" onclick="setFilter('grade', 'Como Novo', this)">Como Novo</button>
-            <button class="chip" onclick="setFilter('grade', 'Excelente', this)">Excelente</button>
-        </div>
-    </div>
-</div>
     <main id="main-content">
         <section id="marketplace-section">
             <div class="section-title">

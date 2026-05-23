@@ -45,7 +45,7 @@ const ApiClient = {
             },
             { 
                 id: 4, name: "Apple Watch Ultra 2", price: 750, grade: "Excelente",
-                category: "Áudio", // Podes mudar para "Wearables" se adicionares essa categoria no index
+                category: "Wearables",
                 img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/watch-ultra-digital-copy-202309?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1693521255535",
                 cpu: "S9 SiP", ram: "N/A", storage: "64GB", battery: "100%",
                 testes: [

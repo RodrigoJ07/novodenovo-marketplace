@@ -13,7 +13,6 @@ async function init() {
     updateCartUI();
     switchProfileTab('info', null);
 }
-// Funçao modal
 
 function closeModal(id) {
     document.getElementById(id).style.display = 'none';
@@ -35,6 +34,7 @@ function renderProducts(list) {
         </div>
     `).join('');
 }
+
 // Variáveis de estado para os filtros
 let currentFilters = {
     search: "",
@@ -44,44 +44,42 @@ let currentFilters = {
 
 // Função para definir o filtro e atualizar a vista
 function setFilter(type, value, el) {
-    // Atualizar UI dos botões (chips)
     const parent = el.parentElement;
     parent.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
-
-    // Atualizar o estado do filtro
     currentFilters[type] = value;
     aplicarFiltrosCombinados();
 }
 
-// A função que realmente filtra a lista
+// FIX: filtrarProdutos era redundante — agora chama diretamente aplicarFiltrosCombinados
+function filtrarProdutos() {
+    aplicarFiltrosCombinados();
+}
+
 function aplicarFiltrosCombinados() {
     let filtrados = allProducts;
 
-    // 1. Filtro de Texto (Barra de Pesquisa)
+    // 1. Filtro de Texto
     const searchQ = document.getElementById('search-bar').value.toLowerCase();
-    if(searchQ) {
+    if (searchQ) {
         filtrados = filtrados.filter(p => p.name.toLowerCase().includes(searchQ));
     }
 
     // 2. Filtro de Categoria
-    if(currentFilters.category !== "Todas") {
+    if (currentFilters.category !== "Todas") {
         filtrados = filtrados.filter(p => p.category === currentFilters.category);
     }
 
-    // 3. Filtro de Condição (Grade)
-    if(currentFilters.grade !== "Todas") {
+    // 3. Filtro de Condição (Grade A inclui Grade A+, Grade A++, etc.)
+    if (currentFilters.grade !== "Todas") {
         filtrados = filtrados.filter(p => p.grade.includes(currentFilters.grade));
     }
 
     renderProducts(filtrados);
 }
-function filtrarProdutos() {
-    aplicarFiltrosCombinados();
-}
 
 // ==========================================
-// PARTE 4: DETALHES DO PRODUTO (FICHA TÉCNICA)
+// PARTE 4: DETALHES DO PRODUTO
 // ==========================================
 function openProductDetail(id) {
     const p = allProducts.find(x => x.id === id);
@@ -136,7 +134,7 @@ function openCart() {
 }
 
 async function checkout() {
-    if(!cart.length) return;
+    if (!cart.length) return;
     const total = cart.reduce((acc, c) => acc + c.price, 0);
     await ApiClient.saveOrder(cart, total);
     cart = [];
@@ -146,20 +144,13 @@ async function checkout() {
 }
 
 // ==========================================
-// PARTE 6: FORMULÁRIOS (VENDA E RECONDICIONAR)
+// PARTE 6: FORMULÁRIO DE RECONDICIONAMENTO
+// FIX: submeterVenda() removida — os campos v-model e v-price não existem no HTML
 // ==========================================
-async function submeterVenda() {
-    const model = document.getElementById('v-model').value;
-    const price = document.getElementById('v-price').value;
-    if(!model || !price) return alert("Preenche todos os campos de venda!");
-    alert(`Proposta de venda para ${model} enviada!`);
-    showSection('marketplace-section', document.querySelector('.nav-item'));
-}
-
 async function submeterPedido() {
     const model = document.getElementById('model').value;
     const diag = document.getElementById('diag').value;
-    if(!model || !diag) return alert("Preenche os dados do recondicionamento!");
+    if (!model || !diag) return alert("Preenche os dados do recondicionamento!");
     await ApiClient.saveRepair({ model, diag });
     alert("Taxa paga! Enviaremos as instruções por email.");
     showSection('marketplace-section', document.querySelector('.nav-item'));
@@ -171,41 +162,52 @@ async function submeterPedido() {
 function switchProfileTab(tab, btn) {
     const user = ApiClient.getUserData();
     const container = document.getElementById('tab-content');
-    if(btn) {
+    if (btn) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     }
-    if(tab === 'info') {
-        container.innerHTML = `<div class="list-item"><span>Nome</span> <strong>${user.nome}</strong></div><div class="list-item"><span>Email</span> <strong>${user.email}</strong></div>`;
-    } else if(tab === 'encomendas') {
-        container.innerHTML = user.encomendas.length ? user.encomendas.map(o => `<div class="list-item"><div><strong>${o.id}</strong><br><small>${o.date}</small></div><div style="text-align:right"><span>${o.total}€</span><br><small style="color:var(--primary)">${o.status}</small></div></div>`).join('') : '<p>Sem encomendas.</p>';
+    if (tab === 'info') {
+        container.innerHTML = `
+            <div class="list-item"><span>Nome</span> <strong>${user.nome}</strong></div>
+            <div class="list-item"><span>Email</span> <strong>${user.email}</strong></div>
+        `;
+    } else if (tab === 'encomendas') {
+        container.innerHTML = user.encomendas.length
+            ? user.encomendas.map(o => `
+                <div class="list-item">
+                    <div><strong>${o.id}</strong><br><small>${o.date}</small></div>
+                    <div style="text-align:right"><span>${o.total}€</span><br><small style="color:var(--primary)">${o.status}</small></div>
+                </div>`).join('')
+            : '<p style="padding:20px; text-align:center;">Sem encomendas.</p>';
     } else {
-        container.innerHTML = user.reparacoes.length ? user.reparacoes.map(r => `<div class="list-item"><div><strong>${r.model}</strong><br><small>${r.date}</small></div><span style="color:var(--primary)">${r.status}</span></div>`).join('') : '<p>Sem reparações.</p>';
+        container.innerHTML = user.reparacoes.length
+            ? user.reparacoes.map(r => `
+                <div class="list-item">
+                    <div><strong>${r.model}</strong><br><small>${r.date}</small></div>
+                    <span style="color:var(--primary)">${r.status}</span>
+                </div>`).join('')
+            : '<p style="padding:20px; text-align:center;">Sem reparações.</p>';
     }
 }
+
 // ==========================================
-// PARTE 8: NAVEGAÇÃO ENTRE SECÇÕES (ABAS)
+// PARTE 8: NAVEGAÇÃO ENTRE SECÇÕES
 // ==========================================
 function showSection(id, el) {
-    // 1. Controlar a visibilidade das secções
     ['marketplace-section', 'reparar-section', 'vender-section', 'perfil-section'].forEach(s => {
         const target = document.getElementById(s);
-        if(target) target.style.display = (s === id) ? 'block' : 'none';
+        if (target) target.style.display = (s === id) ? 'block' : 'none';
     });
 
-    // 2. MOSTRAR/ESCONDER A BARRA DE PESQUISA
     const searchBar = document.querySelector('.search-container');
-    if (searchBar) {
-        // Só aparece se estivermos na Home (Marketplace)
-        searchBar.style.display = (id === 'marketplace-section') ? 'block' : 'none';
-    }
+    const filtersSection = document.querySelector('.filters-section');
+    if (searchBar) searchBar.style.display = (id === 'marketplace-section') ? 'block' : 'none';
+    if (filtersSection) filtersSection.style.display = (id === 'marketplace-section') ? 'block' : 'none';
 
-    // 3. Atualizar o aspeto dos botões da navegação inferior
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(el) el.classList.add('active');
+    if (el) el.classList.add('active');
 
-    // 4. Se for o perfil, carregar os dados iniciais
-    if(id === 'perfil-section') switchProfileTab('info', document.querySelector('.tab-btn'));
+    if (id === 'perfil-section') switchProfileTab('info', document.querySelector('.tab-btn'));
 }
 
 init();
