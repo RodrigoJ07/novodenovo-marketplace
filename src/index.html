@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovoDeNovo | Marketplace Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">NovoDeNovo</div>
+        <div class="header-right">
+            <div class="cart-icon" onclick="openCart()">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="O que procuras hoje?" onkeyup="filtrarProdutos()">
+    </div>
+
+    <main id="main-content">
+        <section id="marketplace-section">
+            <div class="section-title">
+                <h2>Explorar Dispositivos</h2>
+                <span class="link-blue">Ver Todos</span>
+            </div>
+            <div id="lista-produtos" class="grid-large"></div>
+        </section>
+
+        <section id="reparar-section" style="display:none;">
+            <div class="form-container">
+                <div class="icon-circle">🔧</div>
+                <h2>Pedido de Recondicionamento</h2>
+                <p>Envia o teu dispositivo para análise profissional.</p>
+                
+                <div class="input-group">
+                    <label>Modelo do Dispositivo</label>
+                    <input type="text" id="model" placeholder="Ex: iPhone 14 Pro Max">
+                </div>
+                <div class="input-group">
+                    <label>Descreve o Problema</label>
+                    <textarea id="diag" placeholder="Ex: Ecrã partido, bateria não carrega..."></textarea>
+                </div>
+                <button class="btn-primary full-width" onclick="submeterPedido()">Pagar Taxa e Enviar</button>
+            </div>
+        </section>
+
+        <section id="perfil-section" style="display:none;">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="avatar-large">👤</div>
+                    <h2 id="perf-nome">Tiago Fernandes</h2>
+                    <p id="perf-email">tiago.fernandes@email.com</p>
+                </div>
+
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="switchProfileTab('info', this)">Dados</button>
+                    <button class="tab-btn" onclick="switchProfileTab('encomendas', this)">Encomendas</button>
+                    <button class="tab-btn" onclick="switchProfileTab('reparacoes', this)">Reparações</button>
+                </div>
+
+                <div id="tab-content" class="tab-body"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('product-modal')">&times;</span>
+            <div id="product-detail-content"></div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cart-modal')">&times;</span>
+            <h2>O teu Carrinho</h2>
+            <div id="cart-items-list"></div>
+            <div class="cart-footer">
+                <h3 id="cart-total-price">Total: 0€</h3>
+                <button class="btn-primary full-width" onclick="checkout()">Finalizar Compra Segura</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="showSection('marketplace-section', this)">🏠<span>Home</span></div>
+        <div class="nav-item" onclick="showSection('reparar-section', this)">🔧<span>Reparar</span></div>
+        <div class="nav-item" onclick="showSection('perfil-section', this)">👤<span>Perfil</span></div>
+    </nav>
+
+    <script src="api-client.js"></script>
+    <script src="logic.js"></script>
+</body>
+</html>
