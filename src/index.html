@@ -5,22 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovoDeNovo | Marketplace Premium</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">NovoDeNovo</div>
         <div class="header-right">
             <div class="cart-icon" onclick="openCart()">
-                🛒 <span id="cart-count">0</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span id="cart-count">0</span>
             </div>
         </div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="search-bar" placeholder="O que procuras hoje?" onkeyup="filtrarProdutos()">
+        <div class="search-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="search-bar" placeholder="O que procuras hoje?" onkeyup="filtrarProdutos()">
+        </div>
     </div>
-    <div class="filters-section" style="padding: 0 20px; margin-bottom: 20px;">
+
+    <div class="filters-section">
         <div class="filter-group">
             <small>Categoria</small>
             <div class="filter-chips" id="filter-category">
@@ -32,7 +37,7 @@
                 <button class="chip" onclick="setFilter('category', 'Gaming', this)">Gaming</button>
             </div>
         </div>
-        <div class="filter-group" style="margin-top:10px;">
+        <div class="filter-group">
             <small>Condição</small>
             <div class="filter-chips" id="filter-grade">
                 <button class="chip active" onclick="setFilter('grade', 'Todas', this)">Todas</button>
@@ -44,7 +49,9 @@
             </div>
         </div>
     </div>
+
     <main id="main-content">
+        <!-- MARKETPLACE -->
         <section id="marketplace-section">
             <div class="section-title">
                 <h2>Explorar Dispositivos</h2>
@@ -53,12 +60,17 @@
             <div id="lista-produtos" class="grid-large"></div>
         </section>
 
+        <!-- DETALHE DO PRODUTO -->
+        <section id="product-detail-section" style="display:none;">
+            <div id="product-detail-page"></div>
+        </section>
+
+        <!-- REPARAR -->
         <section id="reparar-section" style="display:none;">
             <div class="form-container">
                 <div class="icon-circle">🔧</div>
                 <h2>Pedido de Recondicionamento</h2>
                 <p>Envia o teu dispositivo para análise profissional.</p>
-                
                 <div class="input-group">
                     <label>Modelo do Dispositivo</label>
                     <input type="text" id="model" placeholder="Ex: iPhone 14 Pro Max">
@@ -71,6 +83,7 @@
             </div>
         </section>
 
+        <!-- PERFIL -->
         <section id="perfil-section" style="display:none;">
             <div class="profile-card">
                 <div class="profile-header">
@@ -78,25 +91,17 @@
                     <h2 id="perf-nome">Tiago Fernandes</h2>
                     <p id="perf-email">tiago.fernandes@email.com</p>
                 </div>
-
                 <div class="profile-tabs">
                     <button class="tab-btn active" onclick="switchProfileTab('info', this)">Dados</button>
                     <button class="tab-btn" onclick="switchProfileTab('encomendas', this)">Encomendas</button>
                     <button class="tab-btn" onclick="switchProfileTab('reparacoes', this)">Reparações</button>
                 </div>
-
                 <div id="tab-content" class="tab-body"></div>
             </div>
         </section>
     </main>
 
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('product-modal')">&times;</span>
-            <div id="product-detail-content"></div>
-        </div>
-    </div>
-
+    <!-- MODAL CARRINHO -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('cart-modal')">&times;</span>
@@ -104,15 +109,35 @@
             <div id="cart-items-list"></div>
             <div class="cart-footer">
                 <h3 id="cart-total-price">Total: 0€</h3>
-                <button class="btn-primary full-width" onclick="checkout()">Finalizar Compra Segura</button>
+                <button class="btn-primary full-width" onclick="checkout()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    Finalizar Compra Segura
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL FICHA TÉCNICA -->
+    <div id="ficha-modal" class="modal">
+        <div class="modal-content modal-ficha">
+            <button class="close-btn" onclick="closeModal('ficha-modal')">✕</button>
+            <div id="ficha-content"></div>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="showSection('marketplace-section', this)">🏠<span>Home</span></div>
-        <div class="nav-item" onclick="showSection('reparar-section', this)">🔧<span>Reparar</span></div>
-        <div class="nav-item" onclick="showSection('perfil-section', this)">👤<span>Perfil</span></div>
+        <div class="nav-item active" onclick="goHome(this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="showSection('reparar-section', this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <span>Reparar</span>
+        </div>
+        <div class="nav-item" onclick="showSection('perfil-section', this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Perfil</span>
+        </div>
     </nav>
 
     <script src="api-client.js"></script>
