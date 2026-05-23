@@ -13,6 +13,11 @@ async function init() {
     updateCartUI();
     switchProfileTab('info', null);
 }
+// Funçao modal
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
 
 // ==========================================
 // PARTE 3: GESTÃO DE PRODUTOS E FILTROS
@@ -30,14 +35,49 @@ function renderProducts(list) {
         </div>
     `).join('');
 }
+// Variáveis de estado para os filtros
+let currentFilters = {
+    search: "",
+    category: "Todas",
+    grade: "Todas"
+};
 
-function filtrarProdutos() {
-    const q = document.getElementById('search-bar').value.toLowerCase();
-    const filtrados = allProducts.filter(p => 
-        p.name.toLowerCase().includes(q) || 
-        p.grade.toLowerCase().includes(q)
-    );
+// Função para definir o filtro e atualizar a vista
+function setFilter(type, value, el) {
+    // Atualizar UI dos botões (chips)
+    const parent = el.parentElement;
+    parent.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+
+    // Atualizar o estado do filtro
+    currentFilters[type] = value;
+    aplicarFiltrosCombinados();
+}
+
+// A função que realmente filtra a lista
+function aplicarFiltrosCombinados() {
+    let filtrados = allProducts;
+
+    // 1. Filtro de Texto (Barra de Pesquisa)
+    const searchQ = document.getElementById('search-bar').value.toLowerCase();
+    if(searchQ) {
+        filtrados = filtrados.filter(p => p.name.toLowerCase().includes(searchQ));
+    }
+
+    // 2. Filtro de Categoria
+    if(currentFilters.category !== "Todas") {
+        filtrados = filtrados.filter(p => p.category === currentFilters.category);
+    }
+
+    // 3. Filtro de Condição (Grade)
+    if(currentFilters.grade !== "Todas") {
+        filtrados = filtrados.filter(p => p.grade.includes(currentFilters.grade));
+    }
+
     renderProducts(filtrados);
+}
+function filtrarProdutos() {
+    aplicarFiltrosCombinados();
 }
 
 // ==========================================
