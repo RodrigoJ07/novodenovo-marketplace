@@ -389,3 +389,537 @@ textarea { min-height: 100px; resize: vertical; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.7rem; color: #94a3b8; cursor: pointer; padding: 6px 20px; border-radius: 12px; transition: color 0.2s; }
 .nav-item:hover { color: var(--primary); }
 .nav-item.active { color: var(--primary); font-weight: 700; }
+
+/* ==========================================
+   HEADER ACTIONS
+   ========================================== */
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.header-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    transition: background 0.2s;
+    position: relative;
+}
+.header-icon-btn:hover { background: #f1f5f9; color: var(--primary); }
+.header-avatar {
+    background: linear-gradient(135deg, var(--primary), #26c6da);
+    border: none;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+}
+.header-avatar:hover { opacity: 0.85; }
+
+/* ==========================================
+   PAGE HERO
+   ========================================== */
+.page-hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+}
+.page-hero-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), #26c6da);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 24px rgba(0,188,212,0.3);
+}
+.sell-icon { background: linear-gradient(135deg, #10b981, #34d399); box-shadow: 0 8px 24px rgba(16,185,129,0.3); }
+.page-hero h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
+.page-hero p { color: var(--text-light); font-size: 0.92rem; max-width: 400px; margin: 0 auto; }
+
+/* ==========================================
+   REPAIR STEPS
+   ========================================== */
+.repair-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px 24px;
+    flex-wrap: wrap;
+}
+.step-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    min-width: 190px;
+    flex: 1;
+    max-width: 240px;
+}
+.step-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #26c6da);
+    color: white;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.step-text { display: flex; flex-direction: column; gap: 2px; }
+.step-text strong { font-size: 0.82rem; font-weight: 700; }
+.step-text span { font-size: 0.72rem; color: var(--text-light); }
+.step-arrow { color: #cbd5e1; font-size: 1.2rem; }
+
+/* ==========================================
+   REPAIR / SELL FORM
+   ========================================== */
+.repair-form-wrap, .sell-form-wrap {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    padding: 0 20px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+@media (max-width: 750px) {
+    .repair-form-wrap, .sell-form-wrap { grid-template-columns: 1fr; }
+}
+.repair-form-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+}
+.form-section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+}
+.device-type-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+@media (max-width: 500px) {
+    .device-type-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.device-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.device-type-btn:hover { border-color: var(--primary); color: var(--primary); }
+.device-type-btn.active { border-color: var(--primary); background: #e0f7fa; color: var(--primary); }
+
+.problem-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+}
+.problem-chip {
+    padding: 9px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+}
+.problem-chip:hover { border-color: var(--primary); }
+.problem-chip.active { border-color: var(--primary); background: #e0f7fa; color: var(--primary); font-weight: 600; }
+
+.repair-price-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 16px;
+}
+.repair-price-banner strong { font-size: 0.9rem; display: block; }
+.repair-price-banner span { font-size: 0.78rem; color: var(--text-light); }
+.repair-price-tag { font-size: 1.4rem; font-weight: 800; color: #16a34a; }
+
+.repair-trust-card {
+    background: linear-gradient(135deg, #e0f7fa, #f0f9ff);
+    border: 1.5px solid #b2ebf2;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+}
+.trust-shield { font-size: 3rem; margin-bottom: 4px; }
+.repair-trust-card h3 { font-size: 1.1rem; font-weight: 800; }
+.repair-trust-card p { font-size: 0.82rem; color: var(--text-light); }
+.trust-badge {
+    background: var(--primary);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+/* ==========================================
+   SELL PAGE
+   ========================================== */
+.sell-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 0 20px 28px;
+}
+@media (max-width: 600px) {
+    .sell-steps { grid-template-columns: repeat(2, 1fr); }
+}
+.sell-step {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.sell-step-icon { font-size: 1.6rem; margin-bottom: 4px; }
+.sell-step strong { font-size: 0.85rem; font-weight: 700; }
+.sell-step span { font-size: 0.72rem; color: var(--text-light); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.select-input {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: #fdfdfd;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    color: var(--text);
+}
+.select-input:focus { border-color: var(--primary); }
+
+.condition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+.condition-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.condition-btn strong { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.condition-btn span { font-size: 0.72rem; color: var(--text-light); }
+.condition-btn:hover { border-color: var(--primary); }
+.condition-btn.active { border-color: #10b981; background: #f0fdf4; }
+.condition-btn.active strong { color: #16a34a; }
+
+.sell-estimate-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 16px;
+}
+.sell-estimate-banner strong { font-size: 0.9rem; display: block; }
+.sell-estimate-banner span { font-size: 0.78rem; color: var(--text-light); }
+.estimate-value { font-size: 1.5rem; font-weight: 800; color: #d97706; min-width: 60px; text-align: right; }
+
+.sell-btn { background: linear-gradient(135deg, #10b981, #34d399) !important; }
+.sell-btn:hover { box-shadow: 0 6px 20px rgba(16,185,129,0.35) !important; }
+
+.sell-info-cards { display: flex; flex-direction: column; gap: 10px; }
+.sell-info-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.sell-info-icon { font-size: 1.4rem; flex-shrink: 0; }
+.sell-info-card strong { font-size: 0.88rem; font-weight: 700; display: block; }
+.sell-info-card span { font-size: 0.78rem; color: var(--text-light); }
+
+/* ==========================================
+   PERFIL PAGE
+   ========================================== */
+.perfil-header-bar { padding: 24px 20px 16px; }
+.perfil-header-bar h2 { font-size: 1.5rem; font-weight: 800; }
+.perfil-list-section { padding: 0 20px 20px; }
+.perfil-section-title { font-size: 0.85rem; font-weight: 700; color: var(--text-light); margin-bottom: 10px; }
+.perfil-list-card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.perfil-list-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-bottom: 1px solid #f8fafc;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.perfil-list-item:hover { background: #f8fafc; }
+.perfil-list-item.last { border-bottom: none; }
+.perfil-list-item > span { flex: 1; font-size: 0.95rem; font-weight: 500; }
+.chevron { color: #cbd5e1; flex-shrink: 0; }
+.perfil-item-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #26c6da);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+.perfil-item-icon.green-icon { background: linear-gradient(135deg, #10b981, #34d399); }
+.perfil-item-icon.blue-icon { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+
+.trust-footer-banner {
+    margin: 0 20px 30px;
+    background: linear-gradient(135deg, #e0f7fa, #f0f9ff);
+    border: 1.5px solid #b2ebf2;
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.trust-shield-big { font-size: 2.5rem; }
+.trust-footer-banner h3 { font-size: 1.1rem; font-weight: 800; }
+.trust-footer-banner p { font-size: 0.82rem; color: var(--text-light); }
+
+/* bottom nav 4 items */
+.bottom-nav { justify-content: space-around; }
+
+/* ==========================================
+   EMPTY RESULTS (US3.1 Cenário 2)
+   ========================================== */
+.empty-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.empty-icon { font-size: 3rem; margin-bottom: 8px; }
+.empty-results h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.empty-results p { font-size: 0.9rem; color: #94a3b8; }
+
+/* ==========================================
+   REPAIR MULTI-STEP
+   ========================================== */
+.active-step { border-color: var(--primary) !important; background: #e0f7fa; }
+.active-step .step-num { background: linear-gradient(135deg, var(--primary), #26c6da); }
+.done-step { border-color: #10b981 !important; background: #f0fdf4; }
+.done-step .step-num { background: #10b981; }
+.step-num.done { background: #10b981 !important; }
+
+.estimate-wrap { padding: 0 20px 40px; max-width: 700px; margin: 0 auto; }
+.estimate-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+.estimate-note {
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    color: #92400e;
+    margin-top: 12px;
+}
+.btn-secondary {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ==========================================
+   PAYMENT METHODS (US3.2 & US2.3)
+   ========================================== */
+.payment-methods { display: flex; flex-direction: column; gap: 8px; }
+.payment-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    text-align: left;
+}
+.payment-btn:hover { border-color: var(--primary); }
+.payment-btn.active { border-color: var(--primary); background: #e0f7fa; }
+.payment-btn .payment-icon { font-size: 1.5rem; flex-shrink: 0; }
+.payment-btn strong { display: block; font-size: 0.9rem; }
+.payment-btn span { font-size: 0.75rem; color: #64748b; }
+.payment-fields { margin-top: 12px; }
+.mb-ref-box {
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.mb-ref-box small { display: block; font-size: 0.72rem; color: #94a3b8; margin-bottom: 2px; }
+.mb-ref-box strong { font-size: 1rem; }
+.checkout-summary-box {
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 4px;
+}
+
+/* ==========================================
+   GARANTIAS (US4.1)
+   ========================================== */
+.garantia-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.garantia-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,188,212,0.1); }
+.garantia-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.garantia-badge {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.garantia-badge.ativa { background: #dcfce7; color: #16a34a; }
+.garantia-badge.expirada { background: #fee2e2; color: #dc2626; }
+.garantia-datas { display: flex; gap: 20px; margin-bottom: 12px; }
+.garantia-datas div { display: flex; flex-direction: column; gap: 2px; }
+.garantia-datas small { font-size: 0.7rem; color: #94a3b8; }
+.garantia-datas strong { font-size: 0.88rem; }
+.btn-acionar {
+    width: 100%;
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #c2410c;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-acionar:hover { background: #ffedd5; }
+
+.garantia-cert-box {
+    background: linear-gradient(135deg, #e0f7fa, #f0f9ff);
+    border: 1.5px solid #b2ebf2;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+}
+.garantia-cert-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.garantia-cert-box h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 16px; }
+.garantia-cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 16px;
+}
+.garantia-cert-grid small { display: block; font-size: 0.7rem; color: #64748b; }
+.garantia-cert-grid strong { font-size: 0.9rem; }
+.garantia-covers { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.garantia-cover-item {
+    background: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: #16a34a;
+    font-weight: 500;
+}

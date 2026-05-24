@@ -10,11 +10,17 @@
 <body>
     <header>
         <div class="logo">NovoDeNovo</div>
-        <div class="header-right">
-            <div class="cart-icon" onclick="openCart()">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <div class="header-actions">
+            <button class="header-icon-btn" title="Definições" onclick="showSection('perfil-section', document.querySelectorAll('.nav-item')[3])">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+            <button class="header-icon-btn" onclick="openCart()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
                 <span id="cart-count">0</span>
-            </div>
+            </button>
+            <button class="header-avatar" onclick="showSection('perfil-section', document.querySelectorAll('.nav-item')[3])">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
         </div>
     </header>
 
@@ -51,7 +57,8 @@
     </div>
 
     <main id="main-content">
-        <!-- MARKETPLACE -->
+
+        <!-- ===== MARKETPLACE ===== -->
         <section id="marketplace-section">
             <div class="section-title">
                 <h2>Explorar Dispositivos</h2>
@@ -60,60 +67,382 @@
             <div id="lista-produtos" class="grid-large"></div>
         </section>
 
-        <!-- DETALHE DO PRODUTO -->
+        <!-- ===== DETALHE DO PRODUTO ===== -->
         <section id="product-detail-section" style="display:none;">
             <div id="product-detail-page"></div>
         </section>
 
-        <!-- REPARAR -->
+        <!-- ===== REPARAR (Épico 2) ===== -->
         <section id="reparar-section" style="display:none;">
-            <div class="form-container">
-                <div class="icon-circle">🔧</div>
-                <h2>Pedido de Recondicionamento</h2>
-                <p>Envia o teu dispositivo para análise profissional.</p>
-                <div class="input-group">
-                    <label>Modelo do Dispositivo</label>
-                    <input type="text" id="model" placeholder="Ex: iPhone 14 Pro Max">
+            <!-- PASSO 1: Formulário -->
+            <div id="repair-step-1">
+                <div class="page-hero repair-hero">
+                    <div class="page-hero-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h1>Pedido de Recondicionamento</h1>
+                    <p>Envia o teu dispositivo para análise profissional pela nossa equipa certificada.</p>
                 </div>
-                <div class="input-group">
-                    <label>Descreve o Problema</label>
-                    <textarea id="diag" placeholder="Ex: Ecrã partido, bateria não carrega..."></textarea>
+
+                <div class="repair-steps">
+                    <div class="step-card active-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text"><strong>Diagnóstico</strong><span>Descreve o dispositivo</span></div>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <div class="step-text"><strong>Estimativa</strong><span>Vê o custo estimado</span></div>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <div class="step-text"><strong>Pagamento</strong><span>Paga a taxa e envia</span></div>
+                    </div>
                 </div>
-                <button class="btn-primary full-width" onclick="submeterPedido()">Pagar Taxa e Enviar</button>
+
+                <div class="repair-form-wrap">
+                    <div class="repair-form-card">
+                        <h3 class="form-section-label">Tipo de Dispositivo</h3>
+                        <div class="device-type-grid">
+                            <button class="device-type-btn active" onclick="selectDeviceType(this, 'Smartphone')">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                Smartphone
+                            </button>
+                            <button class="device-type-btn" onclick="selectDeviceType(this, 'Portátil')">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+                                Portátil
+                            </button>
+                            <button class="device-type-btn" onclick="selectDeviceType(this, 'Tablet')">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                Tablet
+                            </button>
+                            <button class="device-type-btn" onclick="selectDeviceType(this, 'Outros')">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                Outros
+                            </button>
+                        </div>
+
+                        <div class="input-group" style="margin-top:20px;">
+                            <label>Modelo do Dispositivo *</label>
+                            <input type="text" id="repair-model" placeholder="Ex: iPhone 14 Pro Max, Samsung S23...">
+                        </div>
+
+                        <h3 class="form-section-label" style="margin-top:8px;">Problema(s) Identificado(s)</h3>
+                        <div class="problem-chips-grid">
+                            <button class="problem-chip" onclick="toggleProblem(this)">🖥️ Ecrã partido</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">🔋 Bateria fraca</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">💧 Danos por água</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">🔌 Não carrega</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">🎙️ Microfone/Som</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">📷 Câmara</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">🔘 Botões</button>
+                            <button class="problem-chip" onclick="toggleProblem(this)">⚙️ Software</button>
+                        </div>
+
+                        <div class="input-group" style="margin-top:16px;">
+                            <label>Descrição adicional (opcional)</label>
+                            <textarea id="repair-diag" placeholder="Descreve o problema com mais detalhe..."></textarea>
+                        </div>
+
+                        <button class="btn-primary full-width" style="margin-top:16px;" onclick="avancarParaEstimativa()">
+                            Ver Estimativa →
+                        </button>
+                    </div>
+                    <div class="repair-trust-card">
+                        <div class="trust-shield">🛡️</div>
+                        <h3>Compra com Confiança</h3>
+                        <p>3 Anos de Garantia • Inspeção de 20 Pontos • Entrega em 24h</p>
+                        <span class="trust-badge">Certificado NovoDeNovo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASSO 2: Estimativa (US2.2) -->
+            <div id="repair-step-2" style="display:none;">
+                <div class="page-hero repair-hero">
+                    <div class="page-hero-icon">💰</div>
+                    <h1>Estimativa do Serviço</h1>
+                    <p>Com base no diagnóstico, gerámos uma estimativa inicial para o teu dispositivo.</p>
+                </div>
+                <div class="repair-steps">
+                    <div class="step-card done-step"><div class="step-num done">✓</div><div class="step-text"><strong>Diagnóstico</strong><span>Concluído</span></div></div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card active-step"><div class="step-num">2</div><div class="step-text"><strong>Estimativa</strong><span>Vê o custo estimado</span></div></div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card"><div class="step-num">3</div><div class="step-text"><strong>Pagamento</strong><span>Paga a taxa e envia</span></div></div>
+                </div>
+                <div class="estimate-wrap">
+                    <div class="estimate-card">
+                        <div class="estimate-device-info" id="estimate-device-info"></div>
+                        <div class="estimate-breakdown" id="estimate-breakdown"></div>
+                        <div class="estimate-total" id="estimate-total"></div>
+                        <div class="estimate-note">⚠️ Estimativa sujeita a confirmação após inspeção física. Taxa de análise reembolsável se decidires não avançar.</div>
+                        <div style="display:flex; gap:12px; margin-top:16px;">
+                            <button class="btn-secondary" onclick="voltarStep1()">← Rever diagnóstico</button>
+                            <button class="btn-primary" style="flex:1;" onclick="avancarParaPagamento()">Aceitar e Pagar Taxa →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASSO 3: Pagamento da taxa (US2.3) -->
+            <div id="repair-step-3" style="display:none;">
+                <div class="page-hero repair-hero">
+                    <div class="page-hero-icon">✅</div>
+                    <h1>Pagamento da Taxa de Análise</h1>
+                    <p>Paga a taxa de 9,99€ para confirmar o pedido e agendar a recolha.</p>
+                </div>
+                <div class="repair-steps">
+                    <div class="step-card done-step"><div class="step-num done">✓</div><div class="step-text"><strong>Diagnóstico</strong><span>Concluído</span></div></div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card done-step"><div class="step-num done">✓</div><div class="step-text"><strong>Estimativa</strong><span>Aceite</span></div></div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-card active-step"><div class="step-num">3</div><div class="step-text"><strong>Pagamento</strong><span>Paga a taxa e envia</span></div></div>
+                </div>
+                <div class="estimate-wrap">
+                    <div class="estimate-card">
+                        <h3 style="margin-bottom:16px;">Escolhe o método de pagamento</h3>
+                        <div class="payment-methods">
+                            <button class="payment-btn active" onclick="selectPayment(this, 'mbway')">
+                                <span class="payment-icon">📱</span>
+                                <div><strong>MBWay</strong><span>Pagamento instantâneo</span></div>
+                            </button>
+                            <button class="payment-btn" onclick="selectPayment(this, 'card')">
+                                <span class="payment-icon">💳</span>
+                                <div><strong>Cartão</strong><span>Visa / Mastercard</span></div>
+                            </button>
+                            <button class="payment-btn" onclick="selectPayment(this, 'mb')">
+                                <span class="payment-icon">🏧</span>
+                                <div><strong>Multibanco</strong><span>Referência gerada</span></div>
+                            </button>
+                        </div>
+
+                        <!-- MBWay fields -->
+                        <div id="mbway-fields" class="payment-fields">
+                            <div class="input-group">
+                                <label>Número de telemóvel (MBWay)</label>
+                                <input type="tel" id="mbway-phone" placeholder="9XX XXX XXX">
+                            </div>
+                        </div>
+                        <!-- Card fields -->
+                        <div id="card-fields" class="payment-fields" style="display:none;">
+                            <div class="input-group">
+                                <label>Número do cartão</label>
+                                <input type="text" placeholder="•••• •••• •••• ••••" maxlength="19">
+                            </div>
+                            <div class="two-col">
+                                <div class="input-group"><label>Validade</label><input type="text" placeholder="MM/AA"></div>
+                                <div class="input-group"><label>CVV</label><input type="text" placeholder="•••" maxlength="3"></div>
+                            </div>
+                        </div>
+                        <!-- MB fields -->
+                        <div id="mb-fields" class="payment-fields" style="display:none;">
+                            <div class="mb-ref-box">
+                                <div><small>Entidade</small><strong>21124</strong></div>
+                                <div><small>Referência</small><strong>123 456 789</strong></div>
+                                <div><small>Montante</small><strong>9,99€</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="repair-price-banner" style="margin-top:16px;">
+                            <div><strong>Taxa de análise</strong><span>Reembolsável se não avançares</span></div>
+                            <div class="repair-price-tag">9,99€</div>
+                        </div>
+                        <div style="display:flex; gap:12px; margin-top:16px;">
+                            <button class="btn-secondary" onclick="voltarStep2()">← Voltar</button>
+                            <button class="btn-primary" style="flex:1;" onclick="confirmarPagamentoReparacao()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Confirmar Pagamento
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- PERFIL -->
-        <section id="perfil-section" style="display:none;">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="avatar-large">👤</div>
-                    <h2 id="perf-nome">Tiago Fernandes</h2>
-                    <p id="perf-email">tiago.fernandes@email.com</p>
+        <!-- ===== VENDER ===== -->
+        <section id="vender-section" style="display:none;">
+            <div class="page-hero sell-hero">
+                <div class="page-hero-icon sell-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 </div>
-                <div class="profile-tabs">
-                    <button class="tab-btn active" onclick="switchProfileTab('info', this)">Dados</button>
-                    <button class="tab-btn" onclick="switchProfileTab('encomendas', this)">Encomendas</button>
-                    <button class="tab-btn" onclick="switchProfileTab('reparacoes', this)">Reparações</button>
+                <h1>Vende o teu Dispositivo</h1>
+                <p>Avaliação gratuita, pagamento em 24h. Processo simples e seguro.</p>
+            </div>
+            <div class="sell-steps">
+                <div class="sell-step"><div class="sell-step-icon">📱</div><strong>Descreve</strong><span>Preenche os detalhes</span></div>
+                <div class="sell-step"><div class="sell-step-icon">💰</div><strong>Avaliação</strong><span>Proposta em minutos</span></div>
+                <div class="sell-step"><div class="sell-step-icon">📦</div><strong>Envia</strong><span>Portes pagos</span></div>
+                <div class="sell-step"><div class="sell-step-icon">✅</div><strong>Recebe</strong><span>Pagamento em 24h</span></div>
+            </div>
+            <div class="sell-form-wrap">
+                <div class="repair-form-card">
+                    <h3 class="form-section-label">Tipo de Dispositivo</h3>
+                    <div class="device-type-grid">
+                        <button class="device-type-btn active" onclick="selectDeviceType(this, 'Smartphone')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Smartphone
+                        </button>
+                        <button class="device-type-btn" onclick="selectDeviceType(this, 'Portátil')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>Portátil
+                        </button>
+                        <button class="device-type-btn" onclick="selectDeviceType(this, 'Tablet')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Tablet
+                        </button>
+                        <button class="device-type-btn" onclick="selectDeviceType(this, 'Outros')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Outros
+                        </button>
+                    </div>
+                    <div class="input-group" style="margin-top:20px;">
+                        <label>Modelo do Dispositivo *</label>
+                        <input type="text" id="sell-model" placeholder="Ex: iPhone 13, MacBook Pro 2022..." oninput="updateSellEstimate()">
+                    </div>
+                    <div class="two-col">
+                        <div class="input-group">
+                            <label>Armazenamento</label>
+                            <select id="sell-storage" class="select-input">
+                                <option value="">Selecionar...</option>
+                                <option>64GB</option><option>128GB</option><option>256GB</option><option>512GB</option><option>1TB</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Cor</label>
+                            <input type="text" id="sell-color" placeholder="Ex: Preto, Branco...">
+                        </div>
+                    </div>
+                    <h3 class="form-section-label">Condição</h3>
+                    <div class="condition-grid">
+                        <button class="condition-btn" onclick="selectCondition(this, 'Como Novo')"><strong>Como Novo</strong><span>Sem marcas, caixa original</span></button>
+                        <button class="condition-btn active" onclick="selectCondition(this, 'Excelente')"><strong>Excelente</strong><span>Marcas mínimas de uso</span></button>
+                        <button class="condition-btn" onclick="selectCondition(this, 'Bom Estado')"><strong>Bom Estado</strong><span>Marcas visíveis mas funcional</span></button>
+                        <button class="condition-btn" onclick="selectCondition(this, 'A Reparar')"><strong>A Reparar</strong><span>Ecrã partido ou com avaria</span></button>
+                    </div>
+                    <div class="sell-estimate-banner" id="sell-estimate">
+                        <div><strong>Estimativa de avaliação</strong><span>Preenche o modelo para uma estimativa</span></div>
+                        <div class="estimate-value" id="estimate-value-display">—</div>
+                    </div>
+                    <button class="btn-primary full-width sell-btn" style="margin-top:16px;" onclick="submeterVenda()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Obter Avaliação Gratuita
+                    </button>
                 </div>
-                <div id="tab-content" class="tab-body"></div>
+                <div class="sell-info-cards">
+                    <div class="sell-info-card"><span class="sell-info-icon">⚡</span><div><strong>Pagamento rápido</strong><span>Transferência em 24h após recebimento</span></div></div>
+                    <div class="sell-info-card"><span class="sell-info-icon">🚚</span><div><strong>Portes grátis</strong><span>Enviamos a etiqueta de envio</span></div></div>
+                    <div class="sell-info-card"><span class="sell-info-icon">🔒</span><div><strong>100% Seguro</strong><span>Dados apagados com certificado</span></div></div>
+                    <div class="sell-info-card"><span class="sell-info-icon">💚</span><div><strong>Sustentável</strong><span>Damos nova vida ao teu dispositivo</span></div></div>
+                </div>
             </div>
         </section>
+
+        <!-- ===== PERFIL ===== -->
+        <section id="perfil-section" style="display:none;">
+            <div class="perfil-header-bar"><h2>Perfil & Definições</h2></div>
+
+            <div class="perfil-list-section">
+                <div class="perfil-list-card">
+                    <div class="perfil-list-item" onclick="openProfileTab('info')">
+                        <div class="perfil-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                        <span>Dados Pessoais</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                    <div class="perfil-list-item" onclick="openProfileTab('encomendas')">
+                        <div class="perfil-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div>
+                        <span>Minhas Compras</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                    <div class="perfil-list-item" onclick="openProfileTab('reparacoes')">
+                        <div class="perfil-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                        <span>Reparações</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                    <div class="perfil-list-item" onclick="openProfileTab('garantias')">
+                        <div class="perfil-item-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <span>Garantias</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                    <div class="perfil-list-item">
+                        <div class="perfil-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                        <span>Métodos de Pagamento</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                    <div class="perfil-list-item last">
+                        <div class="perfil-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <span>Segurança</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="perfil-list-section">
+                <h3 class="perfil-section-title">Suporte</h3>
+                <div class="perfil-list-card">
+                    <div class="perfil-list-item"><div class="perfil-item-icon blue-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span>Live Chat</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></div>
+                    <div class="perfil-list-item last"><div class="perfil-item-icon blue-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>FAQ</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></div>
+                </div>
+            </div>
+
+            <div class="trust-footer-banner">
+                <div class="trust-shield-big">🛡️</div>
+                <h3>Compra com Confiança</h3>
+                <p>3 Anos de Garantia • Inspeção de 20 Pontos • Entrega em 24h</p>
+                <span class="trust-badge">Certificado NovoDeNovo</span>
+            </div>
+
+            <div id="tab-content" class="tab-body" style="display:none;"></div>
+        </section>
+
     </main>
 
-    <!-- MODAL CARRINHO -->
+    <!-- MODAL CARRINHO (US3.2) -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('cart-modal')">&times;</span>
             <h2>O teu Carrinho</h2>
             <div id="cart-items-list"></div>
-            <div class="cart-footer">
-                <h3 id="cart-total-price">Total: 0€</h3>
-                <button class="btn-primary full-width" onclick="checkout()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                    Finalizar Compra Segura
+            <div class="cart-footer" id="cart-footer-content"></div>
+        </div>
+    </div>
+
+    <!-- MODAL PAGAMENTO CHECKOUT (US3.2) -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('checkout-modal')">&times;</span>
+            <h2>Finalizar Compra</h2>
+            <div id="checkout-summary"></div>
+            <h3 style="margin:16px 0 10px;">Método de Pagamento</h3>
+            <div class="payment-methods">
+                <button class="payment-btn active" onclick="selectCheckoutPayment(this, 'mbway')">
+                    <span class="payment-icon">📱</span><div><strong>MBWay</strong><span>Pagamento instantâneo</span></div>
+                </button>
+                <button class="payment-btn" onclick="selectCheckoutPayment(this, 'card')">
+                    <span class="payment-icon">💳</span><div><strong>Cartão</strong><span>Visa / Mastercard</span></div>
+                </button>
+                <button class="payment-btn" onclick="selectCheckoutPayment(this, 'mb')">
+                    <span class="payment-icon">🏧</span><div><strong>Multibanco</strong><span>Referência gerada</span></div>
                 </button>
             </div>
+            <div id="checkout-mbway-fields" class="payment-fields" style="margin-top:12px;">
+                <div class="input-group"><label>Número de telemóvel (MBWay)</label><input type="tel" id="checkout-mbway-phone" placeholder="9XX XXX XXX"></div>
+            </div>
+            <div id="checkout-card-fields" class="payment-fields" style="display:none;margin-top:12px;">
+                <div class="input-group"><label>Número do cartão</label><input type="text" placeholder="•••• •••• •••• ••••" maxlength="19"></div>
+                <div class="two-col">
+                    <div class="input-group"><label>Validade</label><input type="text" placeholder="MM/AA"></div>
+                    <div class="input-group"><label>CVV</label><input type="text" placeholder="•••" maxlength="3"></div>
+                </div>
+            </div>
+            <div id="checkout-mb-fields" class="payment-fields" style="display:none;margin-top:12px;">
+                <div class="mb-ref-box">
+                    <div><small>Entidade</small><strong>21124</strong></div>
+                    <div><small>Referência</small><strong id="mb-ref-num">123 456 789</strong></div>
+                    <div><small>Montante</small><strong id="mb-ref-amount">0€</strong></div>
+                </div>
+            </div>
+            <button class="btn-primary full-width" style="margin-top:16px;" onclick="confirmarCheckout()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Confirmar Pagamento
+            </button>
         </div>
     </div>
 
@@ -125,6 +454,29 @@
         </div>
     </div>
 
+    <!-- MODAL GARANTIA (US4.1) -->
+    <div id="garantia-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('garantia-modal')">&times;</span>
+            <div id="garantia-content"></div>
+        </div>
+    </div>
+
+    <!-- MODAL ACIONAR GARANTIA (US4.1 Cenário 2) -->
+    <div id="acionar-garantia-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('acionar-garantia-modal')">&times;</span>
+            <h2>Acionar Garantia</h2>
+            <p style="color:#64748b;margin-bottom:16px;">Descreve a avaria para iniciar o processo de recolha gratuita.</p>
+            <div class="input-group"><label>Descrição da avaria *</label><textarea id="garantia-avaria" placeholder="Descreve o defeito técnico apresentado..."></textarea></div>
+            <input type="hidden" id="garantia-order-id">
+            <button class="btn-primary full-width" onclick="confirmarAcionarGarantia()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Submeter Pedido de Garantia
+            </button>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="goHome(this)">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -133,6 +485,10 @@
         <div class="nav-item" onclick="showSection('reparar-section', this)">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             <span>Reparar</span>
+        </div>
+        <div class="nav-item" onclick="showSection('vender-section', this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Vender</span>
         </div>
         <div class="nav-item" onclick="showSection('perfil-section', this)">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
