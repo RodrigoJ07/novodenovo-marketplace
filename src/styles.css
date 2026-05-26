@@ -923,3 +923,80 @@ textarea { min-height: 100px; resize: vertical; }
     color: #16a34a;
     font-weight: 500;
 }
+
+/* ==========================================
+   SELL — SEAL & PRICE
+   ========================================== */
+.seal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+@media (max-width: 500px) { .seal-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.seal-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-light);
+}
+.seal-btn:hover { border-color: var(--primary); }
+.seal-btn.active { border-color: var(--primary); background: #e0f7fa; }
+.seal-badge {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.price-input-wrap { margin-bottom: 4px; }
+.price-input-box {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    transition: border-color 0.2s;
+}
+.price-input-box:focus-within { border-color: var(--primary); }
+.price-currency {
+    padding: 13px 14px;
+    background: #f8fafc;
+    border-right: 1.5px solid var(--border);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+.price-input-box input {
+    border: none;
+    border-radius: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 13px 16px;
+    width: 100%;
+    outline: none;
+    background: white;
+}
+
+.price-hint {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+.hint-warning { background: #fff7ed; border: 1.5px solid #fed7aa; color: #c2410c; }
+.hint-info    { background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1d4ed8; }
+.hint-ok      { background: #f0fdf4; border: 1.5px solid #bbf7d0; color: #16a34a; }

@@ -395,26 +395,101 @@ function selectCondition(el, condition) {
     updateSellEstimate();
 }
 
+let selectedSeal = 'Grade B';
+
+function selectSeal(el, seal) {
+    el.closest('.seal-grid').querySelectorAll('.seal-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    selectedSeal = seal;
+    updateSellEstimate();
+}
+
+function validarSelo(input) {
+    const val = input.value.trim();
+    const msg = document.getElementById('seal-validation-msg');
+    if (!val) { msg.textContent = ''; return; }
+    // Formato esperado: NND-XXXX-X-XXXXX
+    const pattern = /^NND-\d{4}-[A-Z]-\d{5}$/;
+    if (pattern.test(val)) {
+        msg.textContent = '✓ Código de selo válido';
+        msg.style.color = '#16a34a';
+    } else {
+        msg.textContent = 'Formato esperado: NND-2024-A-00123 (ou deixa em branco se não tiveres)';
+        msg.style.color = '#94a3b8';
+    }
+}
+
 function updateSellEstimate() {
     const model = (document.getElementById('sell-model')?.value || '').toLowerCase();
     const el = document.getElementById('estimate-value-display');
     if (!el) return;
     if (!model) { el.textContent = '—'; return; }
+
     const ranges = {
         'iphone 15':[800,1100],'iphone 14':[550,800],'iphone 13':[350,550],'iphone 12':[250,400],
         'samsung s24':[600,900],'samsung s23':[400,650],'macbook':[700,1200],
         'ipad':[300,700],'pixel':[300,600],'airpods':[80,180],'ps5':[250,400]
     };
-    const mult = {'Como Novo':1.0,'Excelente':0.85,'Bom Estado':0.65,'A Reparar':0.35}[selectedCondition] || 0.85;
+    const condMult = {'Como Novo':1.0,'Excelente':0.85,'Bom Estado':0.65,'A Reparar':0.35}[selectedCondition] || 0.85;
+    const sealMult = {'Grade A++':1.05,'Grade A+':1.0,'Grade A':0.95,'Como Novo':1.08,'Grade B':0.80,'Sem Selo':0.70}[selectedSeal] || 0.85;
+
     let range = [80,200];
     for (const [key,r] of Object.entries(ranges)) { if (model.includes(key)) { range=r; break; } }
-    el.textContent = `${Math.round(range[0]*mult)}–${Math.round(range[1]*mult)}€`;
+
+    const low = Math.round(range[0] * condMult * sealMult);
+    const high = Math.round(range[1] * condMult * sealMult);
+    el.textContent = `${low}–${high}€`;
+
+    // Verificar preço do vendedor vs estimativa
+    verificarPreco();
+}
+
+function verificarPreco() {
+    const priceEl = document.getElementById('sell-price');
+    const hintBox = document.getElementById('price-hint-box');
+    const hintContent = document.getElementById('price-hint-content');
+    const estimateText = document.getElementById('estimate-value-display')?.textContent;
+
+    if (!priceEl || !hintBox) return;
+    const preco = parseFloat(priceEl.value);
+    if (!preco || estimateText === '—') { hintBox.style.display = 'none'; return; }
+
+    // Extrair max da estimativa
+    const parts = estimateText.replace('€','').split('–');
+    const estMax = parseFloat(parts[1]);
+    const estMin = parseFloat(parts[0]);
+
+    hintBox.style.display = 'block';
+
+    if (preco > estMax * 1.2) {
+        hintContent.innerHTML = `⚠️ O teu preço está <strong>acima</strong> da estimativa da NovoDeNovo (${estimateText}). Pode ser difícil vender. Considera baixar o preço.`;
+        hintBox.className = 'price-hint hint-warning';
+    } else if (preco < estMin * 0.7) {
+        hintContent.innerHTML = `💡 O teu preço está <strong>abaixo</strong> da estimativa (${estimateText}). Poderias pedir mais pelo teu dispositivo!`;
+        hintBox.className = 'price-hint hint-info';
+    } else {
+        hintContent.innerHTML = `✓ Preço <strong>competitivo</strong> dentro da estimativa (${estimateText}). Boa escolha!`;
+        hintBox.className = 'price-hint hint-ok';
+    }
 }
 
 async function submeterVenda() {
-    const model = document.getElementById('sell-model')?.value;
+    const model = document.getElementById('sell-model')?.value?.trim();
+    const preco = document.getElementById('sell-price')?.value;
+    const sealCode = document.getElementById('sell-seal-code')?.value?.trim();
+    const storage = document.getElementById('sell-storage')?.value;
+
     if (!model) { alert('Indica o modelo do dispositivo!'); return; }
-    alert(`Proposta de venda enviada para ${model}!\nEntraremos em contacto em breve.`);
+    if (!preco || preco <= 0) { alert('Indica o preço pretendido!'); return; }
+
+    const resumo = `✅ Proposta de venda submetida!\n\n` +
+        `Dispositivo: ${model}${storage ? ' ' + storage : ''}\n` +
+        `Condição: ${selectedCondition}\n` +
+        `Selo: ${selectedSeal}${sealCode ? ' (' + sealCode + ')' : ''}\n` +
+        `Preço pretendido: ${preco}€\n\n` +
+        `A nossa equipa irá avaliar e entrar em contacto em breve.`;
+
+    alert(resumo);
     goHome(null);
 }
 
